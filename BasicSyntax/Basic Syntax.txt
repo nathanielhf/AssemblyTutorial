@@ -1,0 +1,56 @@
+asm program divided into 3 sections
+	- data section
+	- bss section
+	- text section
+
+The data Section
+----------------
+
+- used for declaring data or constants
+- data does not change at runtime
+- can declare constant values, file names, buffer size
+- declare with 'section.data'
+
+The bss Section
+---------------
+
+- used for declaring variables
+- declare 'section.bss'
+
+The text Section
+----------------
+
+- used for keeping actual code
+- declare global _start
+- _start tells linker where code begins
+section.text
+	global _start
+_start:
+
+Comments
+--------
+
+;hewwo this is a comment
+add eax, ebx 	; comment on a line
+
+Statements
+----------
+
+- 3 types
+	- Executable instructions or instructions
+	- Assembler directives or pseudo-ops
+	- Macros
+- Executable instructions ('instructions') tell processessor what to do
+	- each asm instruction consists of an operation code (opcode)
+	- each asm instruction generates one machine language instruction
+- Assembler directives/pseudo-ops
+	- tell assembler about various aspects of assembly process
+	- non-executable, do not generate machine language instructions
+- Macros: text substitution mechanism
+
+Syntax of Assembly Language Statements
+--------------------------------------
+
+[label]  mnemonic  [operands]  [;comment]
+- square brackets are optional
+- mnemonic is name of instruction to be executed, second is operands or params of command
