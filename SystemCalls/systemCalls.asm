@@ -1,5 +1,5 @@
 section .data				; Data segment
-    userMsg db 'Please enter a number'  ; ask the suer to enter a number
+    userMsg db 'Please enter a number: '  ; ask the suer to enter a number
     lenUserMsg equ $-userMsg		; the length of the message
     dispMsg db 'You have entered: '	
     lenDispMsg equ $-dispMsg
