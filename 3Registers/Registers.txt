@@ -1,0 +1,155 @@
+- processor operations mostly involve processing data
+- data can be stored in memory and accessed from there
+HOWEVER
+- reading data from and storing data to memory slows down processor
+	- involves sending data request across control bus -> into memory storage unit -> receiving data back through same channel
+	- [I believe this describes Von Neumann Architecture (one channel) - Harvard architecture allows sending and and receiving data simultaneously (two channels)]
+
+- to speed up processor operations, proc includes internal memory storage locations called REGISTERS
+
+Processor Registers
+-------------------
+
+- ten 32-bit and six 16-bit processor registers in IA-32 architecture
+- three categories
+	1. General registers
+	2. Control registers
+	3. Segment registers
+- General registers subdivided into three groups
+	1. Data registers
+	2. Pointer registers
+	3. Index registers
+
+Data Registers
+--------------
+
+- four 32-bit data registers are used for arithmetic, logical, and other operations
+- used in three ways
+	1. Complete 32-bit data registers: EAX, EBX, ECX, EDX (E for EXTENDED)
+	2. Lower halves of 32-bit registers can be used as four 16-bit data registers: AX, BX, CX, DX
+	3. Lower and higher halves of four 16-bit registers can be used as eight 8-bit data registers: AH, AL, BH, BL, CH, CL, DH, DL
+[- Original Intel 8086 and 8088 had 16-bit registers (AX, BX, CX, DX)
+	- subsequent 80386 processor has 32-bit registers (EAX, EBX, ECX, EDX)]
+
+AX is primary Accumulator
+- used for I/O and most arithmetic instruction
+- e.g. for multiplication: one operand stored in EAX, AX, or AL according to size of operand
+
+BX is Base register
+- used in indexed addressing
+
+CX is Count register
+- stores loop count in iterative operations
+
+DX is Data register
+- also used in I/O
+- used with AX for multiplication and division operations with large values
+
+Pointer Registers
+-----------------
+
+- 32-bit EIP, ESP, EBP and rightmost 16-bit portions IP, SP, BP
+
+Instruction Pointer (IP)
+- 16-bit
+- stores offest address of next instruction to be executed
+- IP in association with CS (Code Segment) register gives complete address of current instruction in code segment -> (CS:IP)
+
+Stack Pointer (SP)
+- provides offset value within program stack
+- SP with SS (Stack Segment) register refers to current position of data or address within program stack -> (SS:SP)
+
+Base Pointer (BP)
+- helps in referencing parameter values passed to subrouting
+- address in SS register combined with offset in BP to get location of parameter
+- can also be combined with DI and SI as base register for special addressing
+
+Index Registers
+---------------
+
+- 32-bit ESI and EDI and 16-bit rightmost portions SI and DI
+- used for indexed addressing and sometimes for addition and subtraction
+
+Source Index (SI)
+- source index for string ops
+
+Destination Index (DI)
+- destination index for string operations
+
+Control Registers
+-----------------
+
+- 32-bit instruction pointer register and 32-bit flags register 
+- Instructions involving comparisons and mathematical calculations change status of flags
+- Conditional instructions test value of status flags take control flow to other locations
+
+Overflow Flag (OF)
+- indicates overflows of high-order (leftmost) bit of data after signed arithmetic operation
+
+Direction Flag (DF)
+- determines left or right direction for moving or comparing string data
+- when DF value is 0: string operation takes left-to-right direction
+- when value is 1: string op takes right-to-left direction
+
+Interrupt Flag (IF)
+- determines whether external interrupts (keyboard entry, etc.) are ignored or processed
+- disables external interrupt when value is 0, enables interrupts when 1
+
+Trap Flag (TF)
+- allows setting operation of processor in single-step mode
+- DEBUG program sets trap flag, so can step through execution one instruction at a time
+
+Sign Flag (SF)
+- shows sign of result of arithmetic operation
+- set according to sign of data item following arithmetic operation
+- sign indicated by high-order of leftmost bit
+- positive result clears value to 0, negative sets to 1
+
+Zero Flag (ZF)
+- indicates result of arithmetic or comparison operation
+- nonzero result clear zero flag to 0 and zero result sets to 1
+
+Auxiliary Carry Flag (AF)
+- contains carri from bit 3 to bit 4 following arithmetic operation (for specialized mathematics)
+- AF set when 1-byte arithmetic operation causes carry from bit 3 into bit 4
+
+Parity Flag (PF)
+- Indicates total number of 1-bits in result obtained from arithmetic operation
+- even number of 1-bit clears parity flag to - and odd nubmer of 1-bits sets to 1
+
+Carry Flag (CF)
+- contains carry of 0 or 1 from high-order bit (leftmost) after arithmetic op
+- stores contents of last bit of a /shift/ or /rotate/ operation
+
+In 16-bit Flags Register:
+
+Flag:                O     D   I   T   S   Z       A       P       C 
+Bit #: 15 14 13 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
+
+Segment Registers
+-----------------
+
+- specific areas defined in program for containing data, code, and stack
+
+Code Segment (CS)
+- contains all instruction to be executed
+- 16-bit stored starting address of code segment
+
+Data Segment (DS)
+- 16-bit
+- contains data, constants, work areas
+
+Stack Segment
+- contains data and return addresses of procedures or subroutines
+- implemented as 'stack' data structure
+- Stack segment (SS) reg stores starting address of stack
+
+- other segments for storing data: ES (Extra Segment) FS, GS
+
+- in ASM programming, program needs to access memory locations
+- all memory locations within segment are relative to starting address of segment
+- a segment begins in address evenly divisble by 16 or hexadecimal 10
+	- rightmost hex digit in all such memory addresses is 0 (not generally stored in segment registers)
+- Segment registers stores starting addresses of a segment
+- to get exact locatin of data or instruction within seg, offset value (or displacement) is required
+- To reference any memory location within segment, processor combines segment address in segment register with offset value of location
