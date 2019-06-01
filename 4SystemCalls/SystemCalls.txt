@@ -1,0 +1,14 @@
+Linux System Calls
+------------------
+
+to use in asm programs:
+- put system call number in EAX register
+- store args to system call in registers EBX, ECX, etc
+- call relevant interrupt
+- result usually returned in EAX register
+
+Six registers store args of the system call used
+- EBX, ECX, EDX, ESI, EDI, EBP
+	- take consecutive args, starting with EBX
+- if more than 6 args, memory location stored in ebx reg
+	
