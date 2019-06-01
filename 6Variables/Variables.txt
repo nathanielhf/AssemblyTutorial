@@ -6,8 +6,7 @@ Syntax:
 -------
 [variable-name]    define-directive    initial-value    [,initial-value]...
 
-5 Basic Forms
--------------
+5 Basic Forms:
 
 Directive	Purpose			Storage Space
 -----------------------------------------------------
@@ -32,3 +31,24 @@ real_number2	DQ	123.456
 - negative numbers converted to 2's complement representation
 - short and long floating-point numbers represented using 32 or 64 bits, respectively
 
+Allocating Storage Space for Uninitialized Data:
+
+Directive	Purpose
+---------------------------------
+  RESB		reserve a Byte
+  RESW		reserve a Word
+  RESD		reserve a Doubleword
+  RESQ		reserve a Quadword
+  REST		reserve Ten Bytes
+
+Multiple Definitions
+--------------------
+- can have multiple data definition statements
+
+
+Multiple Initializations
+------------------------
+- 'times' directive allows multiple initializations to same value
+- e.g.: 'marks  TIMES  9  DW  0'
+	- init array named 'marks' of size 9 and with value of 0
+- useful for defining arrays and tables
