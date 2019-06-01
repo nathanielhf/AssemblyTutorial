@@ -12,4 +12,4 @@ _start:						; tell linker entry point
 	int 0x80				; call kernel
 
 section .data
-choice db 'y'
+	choice db 'y'
