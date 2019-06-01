@@ -1,0 +1,91 @@
+Some instructions require 2 operands
+- first is destination (data in a register or mem location)
+- second operand is source (data to be delivered/immediate addressing, or address in reg or mem)
+
+3 Basic Modes
+- Register 
+- Immediate 
+- Memory
+
+Register Addressing
+-------------------
+- register contains operand
+- register may be first operand, second operand, or both
+- fastest
+
+Immediate Addressing
+--------------------
+- has constand value or expression
+- first operand reg or mem location, second operand immediate constant
+	- first operand defines length of data
+
+Direct Memory Addressing
+------------------------
+- slower
+- to locate exact location of data in memory, need:
+	- segment start address (found in DS reg)
+	- offset value (aka effective address)
+- one operand is mem location, other is reg
+
+E.g.
+
+ADD	BYTE_VALUE, DL ; Add register in memory location
+MOV	BX, WORD_VALUE ; Operand from memory is added to register
+
+Direct-Offset Addressing
+------------------------
+- use arithmetic operators to modify an address
+
+E.g.
+
+BYTE_TABLE DB  14, 15, 22, 45      ; Tables of bytes
+WORD_TABLE DW  134, 345, 564, 123  ; Tables of words
+
+The following operations access data from the tables in the memory into registers -
+
+MOV CL, BYTE_TABLE[2]	; Gets the 3rd element of the BYTE_TABLE
+MOV CL, BYTE_TABLE + 2	; Gets the 3rd element of the BYTE_TABLE
+MOV CX, WORD_TABLE[3]	; Gets the 4th element of the WORD_TABLE
+MOV CX, WORD_TABLE + 3	; Gets the 4th element of the WORD_TABLE
+
+Indirect Memory Addressing
+--------------------------
+- utilizes Segment:Offset addressing
+- base registers (EBX/BX, EBP/BP) and index registers (DI, SI) coded within square brackets for memory references
+- used for vars containing several elements (like arrays)
+	- starting address is stored in a register e.g. EBX
+
+e.g. (accessing different elements of a var)
+MY_TABLE TIMES 10 DW 0  ; Allocates 10 words (2 bytes) each initialized to 0
+MOV EBX, [MY_TABLE]     ; Effective Address of MY_TABLE in EBX
+MOV [EBX], 110          ; MY_TABLE[0] = 110
+ADD EBX, 2              ; EBX = EBX +2
+MOV [EBX], 123          ; MY_TABLE[1] = 123
+
+MOV Instruction
+---------------
+- takes 2 operands
+	"MOV    destination, source"
+- 1 of 5 forms
+	- MOV register, register
+	- " register, immediate
+	- " memory, immediate
+	- " register, memory
+	- " memory, register
+- both operands should be same size
+- value of source operand remains unchanged
+
+- sometimes causes abiguity about type equivalent of source
+	e.g.
+	MOV	EBX, [MY_TABLE]	 ; Effective address of MY_TABLE in EBX
+	MOV	[EBX], 110	 ; MY_TABLE[0] = 110
+- not clear if want move byte equivalend or word equialent of 110
+	- wise to use type specifier
+
+Type Specifier		Bytes Addressed
+    BYTE			1
+    WORD			2
+    DWORD			4
+    QWORD			8
+    TBYTE			10
+
