@@ -1,0 +1,14 @@
+To Assemble
+-----------
+$ nasm -f elf <filename>.asm
+(this creates the object file <filename>.o)
+
+To Link object file and Create Executable
+-----------------------------------------
+$ ld -m elf_i386 -s -o <filename> <filename>.o
+
+To Execute program
+------------------
+$ ./<filename>
+
+
