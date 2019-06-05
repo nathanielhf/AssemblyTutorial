@@ -1,0 +1,44 @@
+- several directives provided by NASM to defined constants. three are:
+	- EQU
+	- %assign
+	- %define
+
+The EQU Directive
+- used for defining constants
+- syntax: 
+
+	CONSTANT_NAME EQU expression
+
+- example
+
+	TOTAL_STUDENTS EQU 50
+
+- can then use constant in code:
+
+	mov  ecx,  TOTAL_STUDENTS
+	cmp  eax,  TOTAL_STUDENTS
+
+- operand can be expression
+	
+	LENGTH equ 20
+	WIDTH  equ 10
+	AREA   equ length * width
+
+The %assign Directive
+- used to defined numeric constants like EQU 
+- BUT allows redefinition
+- example
+
+	%assign TOTAL 10
+	%assign TOTAL 20
+
+- case-sensitive
+
+The %define Directive
+- allows defining both numeric and string constants
+- similar to #define in C
+- example
+	
+	%define PTR [EBP+4]
+
+- allows redefinition and is case-sensitive

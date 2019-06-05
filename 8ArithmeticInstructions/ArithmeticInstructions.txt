@@ -1,0 +1,16 @@
+INC
+- increment by one
+- single operand in a reg or in mem
+INC destination
+- destination can be 8-, 16-, or 32-bit
+
+DEC
+- similar to INC, but decrements by one
+
+ADD and SUB Instructions
+- add and subtract byte, word, doubleword size
+	- i.e. 8-, 16-, or 32-bit operands
+- reg to reg, mem to reg, reg to mem, reg to const, mem to const
+- memory-to-memory not possible
+	- like other instructions
+- these operations set or clear overflow and carry flags
