@@ -10,18 +10,18 @@ Syntax:
 
 Directive	Purpose			Storage Space
 -----------------------------------------------------
-    DB		Define byte		allocates 1 byte
-    DW		define word		allocates 2 bytes
+    DB		Define byte			allocates 1 byte
+    DW		define word			allocates 2 bytes
     DD		define doubleword	allocates 4 bytes
     DQ		define quadword		allocates 8 bytes
     DT		define ten bytes	allocates 10 bytes
 
 e.g.
 ----
-choice		DB	'y'
-number		DW	12345
-neg_number	DW	-12345
-big_number	DQ	123456789
+choice			DB	'y'
+number			DW	12345
+neg_number		DW	-12345
+big_number		DQ	123456789
 real_number1	DD	1.234
 real_number2	DQ	123.456
 
