@@ -10,7 +10,71 @@ DEC
 ADD and SUB Instructions
 - add and subtract byte, word, doubleword size
 	- i.e. 8-, 16-, or 32-bit operands
-- reg to reg, mem to reg, reg to mem, reg to const, mem to const
+- reg to reg, mem to reg, reg to mem, reg to constant data, mem to constant data
 - memory-to-memory not possible
 	- like other instructions
 - these operations set or clear overflow and carry flags
+
+MUL/IMUL
+--------
+- mutiply: unsigned data
+- integer multiply: signed data
+- both affect Carry and Overflow flags
+- uses double-length registers to keep product
+
+Syntax
+- multiplicand in accumulator
+- 3 scenarios
+1. Multiplying two bytes
+	- multiplicand in AL register, multiplier is byte in memory or another register
+	- product in AX
+	- high-order (leftmost) 8 bits of product in AH, low order (rightmost) 8 bits in AL
+	AL * 8bitSource = AH AL
+2. Multiplying two one-word values (2-byte values)
+	- multiplicand in AX, multiplier is word in memory or another register
+		- e.g. 'MUL DX'
+			- store multiplier in DX and multiplicand in AX
+	- product is doubleword (needs 2 registers)
+	- high-order in DX, lower order in AX
+		AX * 16 bit source = DX AX
+3. Multiplying two doubleword values (4-byte values)
+	- multiplicand in EAX, multiplier is doubleword stored in memory or another register
+	- product stored in EDX:EAX 
+		- high order 32 bits in EDX, low order 32-bits in EAX
+	EAX * 32 bit source = EDX EAX
+
+DIV/IDIV
+--------
+- div for unsigned, integer div (IDIV) for signed)
+- quotient and remainder
+- overflow may occur (div does not use double-length registers)
+
+Syntax
+- dividend is in an accumulator (AX -> AH AL)
+- both div and idiv work with 8, 16, or 32 bit operands
+- affects all six flags
+- 3 scenarios, depending on size
+1. Divisor is 1 byte
+	- dividend assumed to be in AX register (16 bits)
+	- after division: quotient goes to AL register and remainder to AH
+
+	16 bit dividend
+		AX		Quotient	Remainder
+	----------------    =      AL	  AND      AH	
+	 8 bit divisor
+2. Divisor is 1 word
+	- dividend assumed to be 32 bits and in DX:AX registers
+		- high order in DX, lower order in AX
+	- 16-bit quotient to AX, 16-bit remainder to DX
+	32 bit dividend
+		AX		Quotient	Remainder
+	----------------    =      AX	  AND      DX	
+	 16 bit divisor
+3. Divisor is doubleword (4 bytes)
+	- dividend is 64 bits long and in EDX:EAX registers (high order in EDX, lower order in EAX)
+	- 32 bit quotient to EAX, 32-bit remainder to EDX
+	64 bit dividend
+		AX		Quotient	Remainder
+	----------------    =      AL	  AND      AH	
+	 32 bit divisor
+

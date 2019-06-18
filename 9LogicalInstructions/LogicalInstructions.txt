@@ -1,0 +1,10 @@
+AND, OR, XOR, TEST, NOT
+- all take 2 operands, except NOT (takes one operand)
+- first operand can be in register or memory
+- second operand can be in register or memory, or be a constant (immediate) value)
+- memory to memory not possible
+- logical instructions compare or match bits of operands and set CF, OF, PF, SF, ZF flags
+
+AND
+---
+- 
